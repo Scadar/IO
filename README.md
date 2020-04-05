@@ -1,2 +1,2 @@
-# teghtml-yandex.ru
+# Test IO streams
 IO
