@@ -3,7 +3,7 @@ import java.io.*;
 public class ReaderFileTest {
     public static void main(String[] args) {
         try {
-            readLines3();
+            readLines4();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,6 +45,20 @@ public class ReaderFileTest {
                 break;
             }
             res.append(new String(cbuf, 0, read));
+        }
+        System.out.println(res.toString());
+        r.close();
+    }
+
+    private static void readLines4() throws IOException {
+        StringBuilder res = new StringBuilder();
+        Reader r = new FileReader("test.txt");
+        while(true){
+            int symbol = r.read();
+            if(symbol == -1){
+                break;
+            }
+            res.append((char)symbol);
         }
         System.out.println(res.toString());
         r.close();
