@@ -2,29 +2,31 @@ import java.io.*;
 
 public class ReaderFileTest {
     public static void main(String[] args) {
+
         try {
-            readLines4();
+            readLines1();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private static void readLines1() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("test.txt"));
-        String line;
-        while((line = br.readLine()) != null){
-            System.out.println(line);
+        try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
         }
-        br.close();
     }
 
     private static void readLines2() throws IOException {
         StringWriter wr = new StringWriter();
         char[] cbuf = new char[8192];
         Reader r = new FileReader("test.txt");
-        while(true){
+        while (true) {
             int read = r.read(cbuf);
-            if(read == -1){
+            if (read == -1) {
                 break;
             }
             wr.write(cbuf, 0, read);
@@ -39,9 +41,9 @@ public class ReaderFileTest {
         char[] cbuf = new char[8192];
 
         Reader r = new FileReader("test.txt");
-        while(true){
+        while (true) {
             int read = r.read(cbuf);
-            if(read == -1){
+            if (read == -1) {
                 break;
             }
             res.append(new String(cbuf, 0, read));
@@ -53,12 +55,16 @@ public class ReaderFileTest {
     private static void readLines4() throws IOException {
         StringBuilder res = new StringBuilder();
         Reader r = new FileReader("test.txt");
-        while(true){
+        while (true) {
             int symbol = r.read();
-            if(symbol == -1){
+            if (symbol == -1) {
                 break;
             }
-            res.append((char)symbol);
+            if (symbol == ' ') {
+                res.append('\n');
+            } else {
+                res.append((char) symbol);
+            }
         }
         System.out.println(res.toString());
         r.close();
